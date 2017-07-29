@@ -410,8 +410,16 @@ static const float ScreenOverlap = 0.1;
 
     if (!renderSetup)
     {
-        glEnable(GL_CULL_FACE);
-        CheckGLError("SceneRendererES2: glEnable(GL_CULL_FACE)");
+        if (self.doFaceCulling)
+        {
+            glEnable(GL_CULL_FACE);
+            CheckGLError("SceneRendererES2: glEnable(GL_CULL_FACE)");
+        }
+        else
+        {
+            glDisable(GL_CULL_FACE);
+            CheckGLError("SceneRendererES2: glDisable(GL_CULL_FACE)");
+        }
     }
     
     if (perfInterval > 0)

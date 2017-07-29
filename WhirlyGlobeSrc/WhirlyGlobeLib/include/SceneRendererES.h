@@ -211,6 +211,8 @@ typedef enum {zBufferOn,zBufferOff,zBufferOffDefault} WhirlyKitSceneRendererZBuf
 /// Set this to turn culling on or off.
 /// By default it's on, so leave it alone unless you know you want it off.
 @property (nonatomic,assign) bool doCulling;
+// Enable or disable face culling
+@property (nonatomic,assign) bool doFaceCulling;
 
 /// The pixel width of the CAEAGLLayer.
 @property (nonatomic,readonly) GLint framebufferWidth;
