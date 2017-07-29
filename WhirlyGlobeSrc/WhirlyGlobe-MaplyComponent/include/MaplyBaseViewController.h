@@ -144,6 +144,7 @@ typedef NS_ENUM(NSInteger, MaplyThreadMode) {
  |:--|:---|:----------|
  |kMaplyRenderHintZBuffer|bool|If set, we'll explicitly turn on the Z buffer.  Normally it's off until a drawable requests it, allowing us to play neat tricks with overlays.  The only time you should be turning this on is if you're doing 3D elevation.  The default is off.|
  |kMaplyRenderHintCulling|bool|If set, we'll use the internal culling logic.  Texture and drawable atlases have largely made this pointless.  Leave it off unless you have a compelling reason to turn it on.|
+ |kMaplyRenderHintFaceCulling|bool|If true, the first frame of the renderer will enable the GL_CULL_FACE state.|
  |kMaplyRendererLightingMode|NSString|This can be set to @"none", in which case we use optimized shaders that do no lighting or "regular".  The latter is the default.|
   */
 - (void)setHints:(NSDictionary *__nonnull)hintsDict;

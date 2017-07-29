@@ -542,6 +542,8 @@ static const float PerfOutputDelay = 15.0;
     sceneRenderer.zBufferMode = (zBuffer ? zBufferOn : zBufferOffDefault);
     BOOL culling = [hints boolForKey:kWGRenderHintCulling default:false];
     sceneRenderer.doCulling = culling;
+    BOOL faceCulling = [hints boolForKey:kWGRenderHintFaceCulling default:true];
+    sceneRenderer.doFaceCulling = faceCulling;
 }
 
 #pragma mark - Geometry related methods
