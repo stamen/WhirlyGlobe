@@ -42,6 +42,8 @@ namespace WhirlyKit
 #define kToolkitDefaultLineProgram "Default Line;backface=yes"
 /// Line (and point) shader without backface culling
 #define kToolkitDefaultLineNoBackfaceProgram "Default Line;backface=no"
+/// Line (and point) shader without backface culling and with separate backfae color
+#define kToolkitDefaultLineNoBackfaceWithColorProgram "Default Line With Backface Color;backface=no"
 /// Billboard shader
 #define kToolkitDefaultBillboardGroundProgram "Default Billboard ground"
 #define kToolkitDefaultBillboardEyeProgram "Default Billboard eye"

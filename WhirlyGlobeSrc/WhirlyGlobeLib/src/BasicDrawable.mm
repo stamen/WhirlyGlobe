@@ -118,6 +118,10 @@ void BasicDrawable::setupStandardAttributes(int numReserve)
     vertexAttributes[colorEntry]->setDefaultColor(RGBAColor(255,255,255,255));
     vertexAttributes[colorEntry]->reserve(numReserve);
     
+    backColorEntry = addAttribute(BDChar4Type,"a_back_color");
+    vertexAttributes[backColorEntry]->setDefaultColor(RGBAColor(0,0,0,0));
+    vertexAttributes[backColorEntry]->reserve(numReserve);
+    
     normalEntry = addAttribute(BDFloat3Type,"a_normal");
     vertexAttributes[normalEntry]->setDefaultVector3f(Vector3f(1.0,1.0,1.0));
     vertexAttributes[normalEntry]->reserve(numReserve);
@@ -308,6 +312,23 @@ RGBAColor BasicDrawable::getColor() const
 {
     return color;
 }
+    
+void BasicDrawable::setBackColor(RGBAColor inColor)
+{
+    backColor = inColor;
+    vertexAttributes[backColorEntry]->setDefaultColor(backColor);
+}
+    
+void BasicDrawable::setBackColor(unsigned char inColor[])
+{
+    backColor.r = inColor[0];  backColor.g = inColor[1];  backColor.b = inColor[2];  backColor.a = inColor[3];
+    vertexAttributes[backColorEntry]->setDefaultColor(backColor);
+}
+    
+RGBAColor BasicDrawable::getBackColor() const
+{
+    return backColor;
+}
 
 void BasicDrawable::setVisibleRange(float minVis,float maxVis,float minVisBand,float maxVisBand)
 { minVisible = minVis;  maxVisible = maxVis;  minVisibleFadeBand = minVisBand; maxVisibleFadeBand = maxVisBand; }
@@ -389,7 +410,10 @@ void BasicDrawable::addTexCoord(int which,TexCoord coord)
 
 void BasicDrawable::addColor(RGBAColor color)
 { vertexAttributes[colorEntry]->addColor(color); }
-
+    
+void BasicDrawable::addBackColor(RGBAColor color)
+{ vertexAttributes[backColorEntry]->addColor(color); }
+    
 void BasicDrawable::addNormal(const Point3f &norm)
 { vertexAttributes[normalEntry]->addVector3f(norm); }
 
@@ -591,6 +615,7 @@ void BasicDrawable::reserveNumNorms(int numNorms)
 void BasicDrawable::reserveNumColors(int numColors)
 {
     vertexAttributes[colorEntry]->reserve(numColors);
+    vertexAttributes[backColorEntry]->reserve(numColors);
 }
 
 void BasicDrawable::setMatrix(const Eigen::Matrix4d *inMat)

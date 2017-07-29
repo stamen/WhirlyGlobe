@@ -437,6 +437,7 @@ static std::vector<Point3f> circleSamples;
 - (void)makeGeometryWithBuilder:(WhirlyKit::ShapeDrawableBuilder *)regBuilder triBuilder:(WhirlyKit::ShapeDrawableBuilderTri *)triBuilder scene:(WhirlyKit::Scene *)scene selectManager:(SelectionManager *)selectManager sceneRep:(ShapeSceneRep *)sceneRep
 {
     RGBAColor theColor = (super.useColor ? super.color : [regBuilder->getShapeInfo().color asRGBAColor]);
+    RGBAColor theBackColor = _backColor;
     
     if (super.isSelectable)
     {
@@ -444,7 +445,7 @@ static std::vector<Point3f> circleSamples;
         sceneRep->selectIDs.insert(super.selectID);
     }
     
-    regBuilder->addPoints(_pts, theColor, _mbr, _lineWidth, false);
+    regBuilder->addPoints(_pts, theColor, theBackColor, _mbr, _lineWidth, false);
 }
 
 @end
@@ -476,7 +477,7 @@ static std::vector<Point3f> circleSamples;
     CoordSystemDisplayAdapter *coordAdapter = scene->getCoordAdapter();
     
     RGBAColor theColor = (super.useColor ? super.color : [regBuilder->getShapeInfo().color asRGBAColor]);
-
+    
     Point3d localPt = coordAdapter->getCoordSystem()->geographicToLocal3d(GeoCoord(_loc.x(),_loc.y()));
     Point3d dispPt = coordAdapter->localToDisplay(localPt);
     Point3d norm = coordAdapter->normalForLocal(localPt);

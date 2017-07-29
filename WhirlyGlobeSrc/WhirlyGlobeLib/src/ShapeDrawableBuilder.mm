@@ -85,6 +85,87 @@ ShapeDrawableBuilder::~ShapeDrawableBuilder()
     for (unsigned int ii=0;ii<drawables.size();ii++)
         delete drawables[ii];
 }
+    
+void ShapeDrawableBuilder::addPoints(std::vector<Point3f> &pts, RGBAColor color, RGBAColor backColor, Mbr mbr, float lineWidth, bool closed){
+    
+    Point3f center3f(center.x(),center.y(),center.z());
+    
+    // Decide if we'll appending to an existing drawable or
+    //  create a new one
+    int ptCount = (int)(2*(pts.size()+1));
+    if (!drawable || (drawable->getNumPoints()+ptCount > MaxDrawablePoints) || (drawable->getLineWidth() != lineWidth))
+    {
+        // We're done with it, toss it to the scene
+        if (drawable)
+            flush();
+        
+        drawable = new BasicDrawable("Shape Manager");
+        [shapeInfo setupBasicDrawable:drawable];
+        drawMbr.reset();
+        drawable->setType(primType);
+        // Adjust according to the vector info
+        //            drawable->setColor([shapeInfo.color asRGBAColor]);
+        drawable->setLineWidth(lineWidth);
+        drawable->setRequestZBuffer(shapeInfo.zBufferRead);
+        drawable->setWriteZBuffer(shapeInfo.zBufferWrite);
+        drawable->setProgram(shapeInfo.programID);
+        if (center.x() != 0.0 || center.y() != 0.0 || center.z() != 0.0)
+        {
+            Eigen::Affine3d trans(Eigen::Translation3d(center.x(),center.y(),center.z()));
+            Matrix4d transMat = trans.matrix();
+            drawable->setMatrix(&transMat);
+        }
+    }
+    drawMbr.expand(mbr);
+    
+    Point3f prevPt,prevNorm,firstPt,firstNorm;
+    for (unsigned int jj=0;jj<pts.size();jj++)
+    {
+        // The point is already in display coordinates, so we have to project back
+        Point3f pt = pts[jj];
+        Point3f localPt = coordAdapter->displayToLocal(pt);
+        Point3f norm = coordAdapter->normalForLocal(localPt);
+        
+        // Add to drawable
+        // Depending on the type, we do this differently
+        if (primType == GL_POINTS)
+        {
+            drawable->addPoint((Point3f)(pt-center3f));
+            drawable->addNormal(norm);
+        } else {
+            if (jj > 0)
+            {
+                drawable->addPoint((Point3f)(prevPt-center3f));
+                drawable->addNormal(prevNorm);
+                drawable->addColor(color);
+                drawable->addBackColor(backColor);
+                drawable->addPoint((Point3f)(pt-center3f));
+                drawable->addNormal(norm);
+                drawable->addColor(color);
+                drawable->addBackColor(backColor);
+            } else {
+                firstPt = pt;
+                firstNorm = norm;
+            }
+            prevPt = pt;
+            prevNorm = norm;
+        }
+    }
+    
+    // Close the loop
+    if (closed && primType == GL_LINES)
+    {
+        drawable->addPoint((Point3f)(prevPt-center3f));
+        drawable->addNormal(prevNorm);
+        drawable->addColor(color);
+        drawable->addBackColor(backColor);
+        drawable->addPoint((Point3f)(firstPt-center3f));
+        drawable->addNormal(firstNorm);
+        drawable->addColor(color);
+        drawable->addBackColor(backColor);
+    }
+}
+
 
 void ShapeDrawableBuilder::addPoints(std::vector<Point3f> &pts,RGBAColor color,Mbr mbr,float lineWidth,bool closed)
 {

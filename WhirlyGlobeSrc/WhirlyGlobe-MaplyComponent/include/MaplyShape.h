@@ -158,6 +158,11 @@ typedef MaplyShapeCylinder WGShapeCylinder;
   */
 @property (nonatomic,assign) float lineWidth;
 
+/** @brief The back color of the line.
+    @details We can set object backface color in the NSDictionary passed in with the add method.  We can also override that here.
+*/
+@property (nonatomic,strong) UIColor * _Nullable backColor;
+
 /** @brief Initialize with coordinates and coordinate array size
     @details This initializer will make a copy of the coordinates and use them to draw the lines.  The x and y values are in geographic.  The z values are offsets from the globe (or map) and are in display units.  For the globe display units are based on a radius of 1.0.
   */

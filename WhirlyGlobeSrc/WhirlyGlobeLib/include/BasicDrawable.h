@@ -141,6 +141,15 @@ public:
     /// Set the color as an array.
     virtual void setColor(unsigned char inColor[]);
     
+    /// Return the default back color
+    virtual RGBAColor getBackColor() const;
+    
+    /// Set the back color as an RGB color
+    virtual void setBackColor(RGBAColor inColor);
+    
+    /// Set the back color as an array.
+    virtual void setBackColor(unsigned char inColor[]);
+    
     /// Set what range we can see this drawable within.
     /// The units are in distance from the center of the globe and
     ///  the surface of the globe as at 1.0
@@ -190,6 +199,9 @@ public:
     
     /// Add a color
     virtual void addColor(RGBAColor color);
+    
+    /// Add a back color
+    virtual void addBackColor(RGBAColor color);
     
     /// Add a normal
     virtual void addNormal(const Point3f &norm);
@@ -313,7 +325,7 @@ public:
     // Attributes associated with each vertex, some standard some not
     std::vector<VertexAttribute *> vertexAttributes;
     // Entries for the standard attributes we create on startup
-    int colorEntry,normalEntry;
+    int colorEntry,normalEntry, backColorEntry;
     // Set up the standard vertex attributes we use
     virtual void setupStandardAttributes(int numReserve=0);
     
@@ -329,6 +341,7 @@ public:
     GLenum type;  // Primitive(s) type
     std::vector<TexInfo> texInfo;
     RGBAColor color;
+    RGBAColor backColor;
     float minVisible,maxVisible;
     float minVisibleFadeBand,maxVisibleFadeBand;
     double minViewerDist,maxViewerDist;

@@ -60,6 +60,8 @@ public:
         
     /// A group of points (in display space) all at once
     void addPoints(std::vector<Point3f> &pts,RGBAColor color,Mbr mbr,float lineWidth,bool closed);
+    /// A group of points (in display space) all at once with back face color
+    void addPoints(std::vector<Point3f> &pts,RGBAColor color,RGBAColor backColor,Mbr mbr,float lineWidth,bool closed);
     
     /// Flush out the current drawable (if there is one) to the list of finished ones
     void flush();

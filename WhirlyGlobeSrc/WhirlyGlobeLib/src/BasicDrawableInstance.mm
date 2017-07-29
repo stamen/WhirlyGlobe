@@ -270,6 +270,14 @@ GLuint BasicDrawableInstance::setupVAO(OpenGLES2Program *prog)
         }
     }
     {
+        const OpenGLESAttribute *backColorAttr = prog->findAttribute("a_back_color");
+        if (backColorAttr)
+        {
+            glDisableVertexAttribArray(backColorAttr->index);
+            CheckGLError("BasicDrawableInstance::draw() glDisableVertexAttribArray");
+        }
+    }
+    {
         const OpenGLESAttribute *dirAttr = prog->findAttribute("a_modelDir");
         if (moving && dirAttr)
         {

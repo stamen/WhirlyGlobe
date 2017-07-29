@@ -335,6 +335,7 @@ extern NSString* const kMaplyDefaultLineShader;
 
 extern NSString* const kMaplyShaderDefaultLineNoBackface;
 extern NSString* const kMaplyNoBackfaceLineShader;
+extern NSString* const kMaplyBackfaceColoredLineShader;
 
 extern NSString* const kMaplyShaderBillboardGround;
 extern NSString* const kMaplyShaderBillboardEye;

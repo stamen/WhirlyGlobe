@@ -2013,12 +2013,21 @@ public:
                 newLin.pts.push_back(pt);
             }
             newLin.lineWidth = lin.lineWidth;
+            
             if (lin.color)
             {
                 newLin.useColor = true;
                 RGBAColor color = [lin.color asRGBAColor];
                 newLin.color = color;
             }
+            
+            if (lin.backColor)
+            {
+                newLin.useColor = true;
+                RGBAColor color = [lin.backColor asRGBAColor];
+                newLin.backColor = color;
+            }
+            
             if (lin.selectable)
             {
                 newLin.isSelectable = true;

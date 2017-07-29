@@ -127,6 +127,9 @@ typedef std::set<ShapeSceneRep *,IdentifiableSorter> ShapeSceneRepSet;
 /// Line width in pixels
 @property (nonatomic,assign) float lineWidth;
 
+/// Backface color of the lines
+@property (nonatomic,assign) WhirlyKit::RGBAColor &backColor;
+
 @end
 
 /** An extruded shape

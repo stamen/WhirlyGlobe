@@ -309,6 +309,7 @@ NSString* const kMaplyDefaultLineShader = @"Default Line;backface=yes";
 
 NSString* const kMaplyShaderDefaultLineNoBackface = @"Default Line;backface=no";
 NSString* const kMaplyNoBackfaceLineShader = @"Default Line;backface=no";
+NSString* const kMaplyBackfaceColoredLineShader = @"Default Line With Backface Color;backface=no";
 
 NSString* const kMaplyShaderBillboardGround = @"Default Billboard ground";
 NSString* const kMaplyShaderBillboardEye = @"Default Billboard eye";
