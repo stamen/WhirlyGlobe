@@ -544,6 +544,8 @@ static const float PerfOutputDelay = 15.0;
     sceneRenderer.doCulling = culling;
     BOOL faceCulling = [hints boolForKey:kWGRenderHintFaceCulling default:true];
     sceneRenderer.doFaceCulling = faceCulling;
+    BOOL allowTransparentBlending = [hints boolForKey:kWGRenderHintTransparentBlending default:false];
+    sceneRenderer.allowTransparentBlending = allowTransparentBlending;
 }
 
 #pragma mark - Geometry related methods

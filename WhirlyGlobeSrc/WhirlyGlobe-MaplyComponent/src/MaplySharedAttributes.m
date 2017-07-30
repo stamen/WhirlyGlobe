@@ -26,6 +26,8 @@ NSString* const kMaplyRenderHintZBuffer = @"zbuffer";
 NSString* const kMaplyRenderHintCulling = @"culling";
 /// Use this hint to turn face culling on or off.  Pass in an NSNumber boolean.
 NSString* const kMaplyRenderHintFaceCulling = @"faceCulling";
+/// Use this hint to turn transparent blending on or off.  Pass in an NSNumber boolean.
+NSString* const kMaplyRenderHintTransparentBlending = @"transparentBlending";
 
 /// These are options for lighting modes, basically different default shader programs.  Only works with OpenGL ES 2.0 mode.
 /// Accepted values are: none,regular

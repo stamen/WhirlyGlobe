@@ -341,7 +341,15 @@ static const float ScreenOverlap = 0.1;
     if (!renderSetup)
     {
         // Turn on blending
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        if (self.allowTransparentBlending)
+        {
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
+        else
+        {
+            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        }
+        
         glEnable(GL_BLEND);
     }
 

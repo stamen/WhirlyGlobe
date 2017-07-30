@@ -214,6 +214,9 @@ typedef enum {zBufferOn,zBufferOff,zBufferOffDefault} WhirlyKitSceneRendererZBuf
 // Enable or disable face culling
 @property (nonatomic,assign) bool doFaceCulling;
 
+// Enable or disable transparent pixel blending
+@property (nonatomic,assign) bool allowTransparentBlending;
+
 /// The pixel width of the CAEAGLLayer.
 @property (nonatomic,readonly) GLint framebufferWidth;
 /// The pixel height of the CAEAGLLayer.

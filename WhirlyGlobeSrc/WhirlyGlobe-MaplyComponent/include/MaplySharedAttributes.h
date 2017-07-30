@@ -29,6 +29,9 @@ extern NSString* const kMaplyRenderHintCulling;
 /// Use this hint to turn face culling on or off.  Pass in an NSNumber boolean.
 extern NSString* const kMaplyRenderHintFaceCulling;
 #define kWGRenderHintFaceCulling kMaplyRenderHintFaceCulling
+/// Use this hint to turn transparent blending on or off.  Pass in an NSNumber boolean.
+extern NSString* const kMaplyRenderHintTransparentBlending;
+#define kWGRenderHintTransparentBlending kMaplyRenderHintTransparentBlending
 
 /// These are options for lighting modes, basically different default shader programs.  Only works with OpenGL ES 2.0 mode.
 /// Accepted values are: none,regular
