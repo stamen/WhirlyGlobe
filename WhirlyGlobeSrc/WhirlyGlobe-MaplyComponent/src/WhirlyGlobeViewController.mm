@@ -987,16 +987,32 @@ using namespace WhirlyGlobe;
     
     bool tappedOutside = msg.worldLoc == Point3f(0,0,0);
 
-    if ([selectedObjs count] > 0 && self.selection)
+    NSArray* orderedList = [selectedObjs sortedArrayUsingComparator:^NSComparisonResult(MaplySelectedObject*  _Nonnull obj1, MaplySelectedObject*  _Nonnull obj2) {
+        
+        NSComparisonResult result = NSOrderedSame;
+        
+        if (obj1.zDist < obj2.zDist)
+        {
+            result = NSOrderedAscending;
+        }
+        else if (obj1.zDist > obj2.zDist)
+        {
+            result = NSOrderedDescending;
+        }
+        
+        return result;
+    }];
+    
+    if ([orderedList count] > 0 && self.selection)
     {
         // The user selected something, so let the delegate know
         if ([_delegate respondsToSelector:@selector(globeViewController:allSelect:atLoc:onScreen:)])
-            [_delegate globeViewController:self allSelect:selectedObjs atLoc:coord onScreen:msg.touchLoc];
+            [_delegate globeViewController:self allSelect:orderedList atLoc:coord onScreen:msg.touchLoc];
         else {
             MaplySelectedObject *selectVecObj = nil;
             MaplySelectedObject *selObj = nil;
             // If the selected objects are vectors, use the draw priority
-            for (MaplySelectedObject *whichObj in selectedObjs)
+            for (MaplySelectedObject *whichObj in orderedList)
             {
                 if ([whichObj.selectedObj isKindOfClass:[MaplyVectorObject class]])
                 {

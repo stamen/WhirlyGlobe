@@ -94,6 +94,11 @@
  */
 @property (nonatomic,strong) id  __nullable userObject;
 
+/**
+ @brief z-position of the marker default is 0.0
+ */
+@property (nonatomic, assign) float zPosition;
+
 @end
 
 /** @brief A version of the maply screen marker that moves.
@@ -106,6 +111,12 @@
 
 /// @brief How long it will take the screen marker to get to endLoc
 @property (nonatomic,assign) NSTimeInterval duration;
+
+@end
+
+@interface MaplyScreenMarkerBack : MaplyScreenMarker
+
++ (MaplyScreenMarkerBack* _Nonnull)markerBackForMarker:(MaplyScreenMarker* _Nonnull)marker;
 
 @end
 

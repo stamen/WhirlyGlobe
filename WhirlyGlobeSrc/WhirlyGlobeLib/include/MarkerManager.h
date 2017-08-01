@@ -97,6 +97,8 @@ typedef std::set<MarkerSceneRep *,IdentifiableSorter> MarkerSceneRepSet;
 @property (nonatomic,assign) WhirlyKit::SimpleIdentity selectID;
 /// The location for the center of the marker.
 @property (nonatomic,assign) WhirlyKit::GeoCoord loc;
+/// The zPosition for the center of the marker.
+@property (nonatomic,assign) float zPosition;
 /// Set if we're moving these over time (screen only)
 @property (nonatomic,assign) bool hasMotion;
 /// Set for animation over time
@@ -137,6 +139,13 @@ typedef std::set<MarkerSceneRep *,IdentifiableSorter> MarkerSceneRepSet;
 /// Add a texture ID to be displayed
 - (void)addTexID:(WhirlyKit::SimpleIdentity)texID;
 
+@end
+
+/** WhirlyGlobe MarkerBack
+ A single marker object to be placed on the globe.  It will show
+ up with the given width and height and be selectable if so desired. The only difference that it's normal vector is pointing to the center of the globe 
+ */
+@interface WhirlyKitMarkerBack : WhirlyKitMarker
 @end
 
 namespace WhirlyKit

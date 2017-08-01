@@ -768,7 +768,17 @@ public:
     NSMutableArray *wgMarkers = [NSMutableArray array];
     for (MaplyScreenMarker *marker in markers)
     {
-        WhirlyKitMarker *wgMarker = [[WhirlyKitMarker alloc] init];
+        WhirlyKitMarker *wgMarker;
+        
+        if ([marker isKindOfClass:[MaplyScreenMarkerBack class]])
+        {
+            wgMarker = [[WhirlyKitMarkerBack alloc] init];
+        }
+        else
+        {
+            wgMarker = [[WhirlyKitMarker alloc] init];
+        }
+        
         wgMarker.loc = GeoCoord(marker.loc.x,marker.loc.y);
         std::vector<MaplyTexture *> texs;
         if (marker.image)
@@ -1062,8 +1072,19 @@ public:
     NSMutableArray *wgMarkers = [NSMutableArray array];
     for (MaplyMarker *marker in markers)
     {
-        WhirlyKitMarker *wgMarker = [[WhirlyKitMarker alloc] init];
+        WhirlyKitMarker *wgMarker;
+        
+        if ([marker isKindOfClass:[MaplyMarkerBack class]])
+        {
+            wgMarker = [[WhirlyKitMarkerBack alloc] init];
+        }
+        else
+        {
+            wgMarker = [[WhirlyKitMarker alloc] init];
+        }
+        
         wgMarker.loc = GeoCoord(marker.loc.x,marker.loc.y);
+        wgMarker.zPosition = marker.zPosition;
 
         std::vector<MaplyTexture *> texs;
         if (marker.image)

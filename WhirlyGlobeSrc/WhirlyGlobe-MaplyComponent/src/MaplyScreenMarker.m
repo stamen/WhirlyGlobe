@@ -40,3 +40,27 @@
 
 @implementation MaplyMovingScreenMarker
 @end
+
+@implementation MaplyScreenMarkerBack
+
++ (MaplyScreenMarkerBack*)markerBackForMarker:(MaplyScreenMarker*)marker
+{
+    MaplyScreenMarkerBack* back = [MaplyScreenMarkerBack new];
+    back.loc = marker.loc;
+    back.size = marker.size;
+    back.rotation = marker.rotation;
+    back.image = marker.image;
+    back.images = marker.images;
+    back.period = marker.period;
+    back.color = marker.color;
+    back.layoutImportance = marker.layoutImportance;
+    back.layoutSize = marker.layoutSize;
+    back.offset = marker.offset;
+    back.vertexAttributes = marker.vertexAttributes;
+    back.selectable = marker.selectable;
+    back.userObject = marker.userObject;
+    
+    return back;
+}
+
+@end

@@ -63,6 +63,17 @@
  */
 @property (nonatomic,strong) id  __nullable userObject;
 
+/**
+ @brief z-position of the marker default is 0.0
+ */
+@property (nonatomic, assign) float zPosition;
+
+@end
+
+@interface MaplyMarkerBack : MaplyMarker
+
++ (MaplyMarkerBack* _Nonnull)markerBackForMarker:(MaplyMarker* _Nonnull)marker;
+
 @end
 
 typedef MaplyMarker WGMarker;

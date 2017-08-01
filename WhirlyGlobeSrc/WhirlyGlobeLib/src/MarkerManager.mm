@@ -91,6 +91,10 @@ namespace WhirlyKit
 
 @end
 
+@implementation WhirlyKitMarkerBack
+
+@end
+
 @implementation WhirlyKitMarkerInfo
 
 // Initialize with an array of makers and parse out parameters
@@ -168,7 +172,13 @@ SimpleIdentity MarkerManager::addMarkers(NSArray *markers,NSDictionary *desc,Cha
         float height2 = (marker.height == 0.0 ? markerInfo.height : marker.height)/2.0;
         
         Point3d localPt = coordAdapter->getCoordSystem()->geographicToLocal3d(marker.loc);
+        
         norm = coordAdapter->normalForLocal(localPt);
+        
+        if ([marker isKindOfClass:[WhirlyKitMarkerBack class]])
+        {
+            norm *= -1;
+        }
         
         // Note: Not supporting more than one texture at the moment
         
@@ -311,14 +321,22 @@ SimpleIdentity MarkerManager::addMarkers(NSArray *markers,NSDictionary *desc,Cha
                 vert = Point3d(0,1,0);
             } else {
                 horiz = up.cross(norm).normalized();
-                vert = norm.cross(horiz).normalized();;
+                vert = norm.cross(horiz).normalized();
             }
             
+            Vector3d offset = norm * marker.zPosition;
+            
+            //we need to handle the normal vector changes
+            if ([marker isKindOfClass:[WhirlyKitMarkerBack class]])
+            {
+                offset = norm * -marker.zPosition;
+            }
+    
             Point3d ll = center - width2*horiz - height2*vert;
-            pts[0] = Vector3dToVector3f(ll);
-            pts[1] = Vector3dToVector3f(ll + 2 * width2 * horiz);
-            pts[2] = Vector3dToVector3f(ll + 2 * width2 * horiz + 2 * height2 * vert);
-            pts[3] = Vector3dToVector3f(ll + 2 * height2 * vert);
+            pts[0] = Vector3dToVector3f(ll + offset);
+            pts[1] = Vector3dToVector3f(ll + 2 * width2 * horiz + offset);
+            pts[2] = Vector3dToVector3f(ll + 2 * width2 * horiz + 2 * height2 * vert + offset);
+            pts[3] = Vector3dToVector3f(ll + 2 * height2 * vert + offset);
             
             // We're sorting the static drawables by texture, so look for that
             SimpleIDSet texIDs;

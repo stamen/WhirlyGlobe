@@ -35,3 +35,21 @@
 }
 
 @end
+
+@implementation MaplyMarkerBack
+
++ (MaplyMarkerBack*)markerBackForMarker:(MaplyMarker*)marker
+{
+    MaplyMarkerBack* back = [MaplyMarkerBack new];
+    back.loc = marker.loc;
+    back.size = marker.size;
+    back.image = marker.image;
+    back.images = marker.images;
+    back.period = marker.period;
+    back.selectable = marker.selectable;
+    back.userObject = marker.userObject;
+    
+    return back;
+}
+
+@end

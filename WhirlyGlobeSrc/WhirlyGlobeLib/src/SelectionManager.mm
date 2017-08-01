@@ -1189,8 +1189,12 @@ void SelectionManager::pickObjects(Point2f touchPt,float maxDist,WhirlyKitView *
                         closeDist3d = (midPt - eyePos).norm();
                     } else {
                         // Now for a proximity check around the edges
+                        
+                        Point3d averagePoint = Point3d(0.0, 0.0, 0.0);
+                        
                         for (unsigned int ii=0;ii<4;ii++)
                         {
+                            averagePoint += Point3d(sel.pts[ii][0], sel.pts[ii][1], sel.pts[ii][2]);
                             float t;
                             Point2f closePt = ClosestPointOnLineSegment(screenPts[ii],screenPts[(ii+1)%4],touchPt,t);
                             float dist2 = (closePt-touchPt).squaredNorm();
@@ -1202,6 +1206,10 @@ void SelectionManager::pickObjects(Point2f touchPt,float maxDist,WhirlyKitView *
                                 closeDist3d = (midPt-eyePos).norm();
                             }
                         }
+                        
+                        //override zdist calculation, from now calculate it from the middle of the marker
+                        averagePoint /= 4.0;
+                        closeDist3d = (averagePoint-eyePos).norm();
                     }
                     
                     if (closeDist2 < maxDist2)
